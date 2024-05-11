@@ -13,6 +13,10 @@ public class PrintRequest {
     @JoinColumn(name = "teacher_id", nullable = false)
     private Teacher teacher;
 
+    @ManyToOne
+    @JoinColumn(name = "print_agent_id")
+    private PrintAgent printAgent;
+
     @Column(nullable = false)
     private String subject;
 

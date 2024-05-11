@@ -6,20 +6,18 @@
     <persistence-unit name="default">
 
     </persistence-unit>
-    <persistence-unit name="myPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="maktbaPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>tn.jihen.demandedetirage.entity.Administrator</class>
         <properties>
-            <!-- JDBC configuration -->
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mydatabase" />
-            <property name="javax.persistence.jdbc.user" value="myusername" />
-            <property name="javax.persistence.jdbc.password" value="mypassword" />
-
-            <!-- JPA implementation properties (Hibernate) -->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-            <property name="hibernate.hbm2ddl.auto" value="update" />
-            <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/maktba"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value=""/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
     </persistence-unit>
 

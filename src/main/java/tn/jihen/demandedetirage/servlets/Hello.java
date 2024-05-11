@@ -1,12 +1,10 @@
-package tn.jihen.demandedetirage;
-
+package tn.jihen.demandedetirage.servlets;
 import java.io.*;
-
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "helloServlet", value = "/hello-servlet")
-public class HelloServlet extends HttpServlet {
+@WebServlet(name = "helloServlet", value = "/hello")
+public class Hello extends HttpServlet {
     private String message;
 
     public void init() {
