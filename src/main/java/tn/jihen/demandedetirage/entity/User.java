@@ -13,6 +13,17 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    // Constructors, getters, and setters
+    public Long getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+// Constructors, getters, and setters
 }
 

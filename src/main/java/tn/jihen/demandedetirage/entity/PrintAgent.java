@@ -8,8 +8,9 @@ public class PrintAgent extends User {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "printAgent")
-    private List<PrintRequest> printRequests;
+    public String getName() {
+        return name;
+    }
 
     // Constructors, getters, and setters
 }

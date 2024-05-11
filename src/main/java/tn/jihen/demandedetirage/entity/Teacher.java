@@ -8,6 +8,10 @@ public class Teacher extends User {
     @Column(nullable = false)
     private String name;
 
+    public String getName() {
+        return name;
+    }
+
     @OneToMany(mappedBy = "teacher")
     private List<PrintRequest> printRequests;
 
@@ -16,5 +20,6 @@ public class Teacher extends User {
     @Column(name = "subject")
     private List<String> subjects;
 
-    // Constructors, getters, and setters
+
+// Constructors, getters, and setters
 }

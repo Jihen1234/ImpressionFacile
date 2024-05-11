@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Random" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,14 +80,16 @@
 <h1>Teacher Interface</h1>
 
 <h2>Make Printing Request</h2>
-<form action="submitRequest" method="post">
-    <label for="subject">Subject:</label>
-    <select name="subject" id="subject">
-        <option value="Math">Math</option>
-        <option value="Science">Science</option>
-        <option value="History">History</option>
-        <!-- Add more subjects as needed -->
+<form action="teacher" method="post" enctype="multipart/form-data">
+    <label for="subjects">Subject:</label>
+
+    <select name="subjects">
+        <% for (Object[] subjectRow : (List<Object[]>)request.getAttribute("subjects")) { %>
+        <option value="<%= subjectRow[0] %>"><%= subjectRow[0] %> - <%= subjectRow[1] %></option>
+        <% } %>
     </select>
+
+
     <label for="document">Document to Print (PDF):</label>
     <input type="file" name="document" id="document" accept=".pdf">
     <label for="arrivalDate">Arrival Date:</label>
@@ -104,17 +111,98 @@
         <th>Copies</th>
         <th>Status</th>
     </tr>
+    <%
+        class PreviousRequest {
+            private String subject;
+            private String document;
+            private String arrivalDate;
+            private String arrivalTime;
+            private int copies;
+            private String status;
+
+            public String getSubject() {
+                return subject;
+            }
+
+            public void setSubject(String subject) {
+                this.subject = subject;
+            }
+
+            public String getDocument() {
+                return document;
+            }
+
+            public void setDocument(String document) {
+                this.document = document;
+            }
+
+            public String getArrivalDate() {
+                return arrivalDate;
+            }
+
+            public void setArrivalDate(String arrivalDate) {
+                this.arrivalDate = arrivalDate;
+            }
+
+            public String getArrivalTime() {
+                return arrivalTime;
+            }
+
+            public void setArrivalTime(String arrivalTime) {
+                this.arrivalTime = arrivalTime;
+            }
+
+            public int getCopies() {
+                return copies;
+            }
+
+            public void setCopies(int copies) {
+                this.copies = copies;
+            }
+
+            public String getStatus() {
+                return status;
+            }
+
+            public void setStatus(String status) {
+                this.status = status;
+            }
+        }
+
+        // Define some sample data
+        String[] subjects = {"Subject A", "Subject B", "Subject C", "Subject D", "Subject E"};
+        String[] documents = {"Document 1", "Document 2", "Document 3", "Document 4", "Document 5"};
+        String[] arrivalDates = {"2024-05-01", "2024-05-02", "2024-05-03", "2024-05-04", "2024-05-05"};
+        String[] arrivalTimes = {"09:00", "10:00", "11:00", "12:00", "13:00"};
+        int[] copies = {1, 2, 3, 4, 5};
+        String[] statuses = {"Pending", "Approved", "Rejected"};
+
+        // Generate random data for 5 previous requests
+        List<PreviousRequest> previousRequests = new ArrayList<>();
+        Random random = new Random();
+        PreviousRequest r;
+        for (int i = 0; i < 5; i++) {
+            r = new PreviousRequest();
+            r.setSubject(subjects[random.nextInt(subjects.length)]);
+            r.setDocument(documents[random.nextInt(documents.length)]);
+            r.setArrivalDate(arrivalDates[random.nextInt(arrivalDates.length)]);
+            r.setArrivalTime(arrivalTimes[random.nextInt(arrivalTimes.length)]);
+            r.setCopies(copies[random.nextInt(copies.length)]);
+            r.setStatus(statuses[random.nextInt(statuses.length)]);
+            previousRequests.add(r);
+        }
+    %>
     <!-- Loop through the list of previous requests and display them -->
-    <c:forEach items="${previousRequests}" var="request">
-        <tr>
-            <td>${request.subject}</td>
-            <td>${request.document}</td>
-            <td>${request.arrivalDate}</td>
-            <td>${request.arrivalTime}</td>
-            <td>${request.copies}</td>
-            <td>${request.status}</td>
-        </tr>
-    </c:forEach>
+    <% for (PreviousRequest f : previousRequests) { %>
+    <tr>
+        <td><%= f.getSubject() %></td>
+        <td><%= f.getDocument() %></td>
+        <td><%= f.getArrivalDate() %></td>
+        <td><%= f.getArrivalTime() %></td>
+        <td><%= f.getCopies() %></td>
+        <td><%= f.getStatus() %></td>
+    </tr>
+    <% } %>
 </table>
 </body>
 </html>

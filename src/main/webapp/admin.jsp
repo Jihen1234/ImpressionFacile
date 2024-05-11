@@ -1,3 +1,6 @@
+<%@ page import="tn.jihen.demandedetirage.entity.PrintAgent" %>
+<%@ page import="java.util.List" %>
+<%@ page import="tn.jihen.demandedetirage.entity.Teacher" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -49,6 +52,9 @@
 <h1>Admin Interface</h1>
 
 <h2>Teachers</h2>
+<%
+    List<Teacher> teachers = (List<Teacher>) request.getAttribute("teachers");
+%>
 <table>
     <tr>
         <th>ID</th>
@@ -58,21 +64,26 @@
         <th>Actions</th>
     </tr>
     <!-- Loop through the list of teachers and display them -->
-    <c:forEach items="${teachers}" var="teacher">
-        <tr>
-            <td>${teacher.id}</td>
-            <td>${teacher.name}</td>
-            <td>${teacher.email}</td>
-            <td>${teacher.password}</td>
-            <td>
-                <a class="button" href="editTeacher?id=${teacher.id}">Edit</a>
-                <a class="button delete" href="deleteTeacher?id=${teacher.id}">Delete</a>
-            </td>
-        </tr>
-    </c:forEach>
+    <% for (int i = 0; i < teachers.size(); i++) { %>
+    <tr>
+        <td>${teachers.get(i).getId()}</td>
+        <td>${teachers.get(i).getName()}</td>
+        <td>${teachers.get(i).getUsername()}</td>
+        <td>${teachers.get(i).getPassword()}</td>
+        <td>
+            <a class="button" href="editPrintAgent?id=${teachers.get(i).getId()}">Edit</a>
+            <a class="button delete" href="deletePrintAgent?id=${teachers.get(i).getId()}">Delete</a>
+        </td>
+    </tr>
+    <% } %>
 </table>
 
 <h2>Print Agents</h2>
+<%
+    List<PrintAgent> agents = (List<PrintAgent>) request.getAttribute("agents");
+%>
+
+
 <table>
     <tr>
         <th>ID</th>
@@ -81,19 +92,20 @@
         <th>Password</th>
         <th>Actions</th>
     </tr>
-    <!-- Loop through the list of print agents and display them -->
-    <c:forEach items="${printAgents}" var="printAgent">
-        <tr>
-            <td>${printAgent.id}</td>
-            <td>${printAgent.name}</td>
-            <td>${printAgent.email}</td>
-            <td>${printAgent.password}</td>
-            <td>
-                <a class="button" href="editPrintAgent?id=${printAgent.id}">Edit</a>
-                <a class="button delete" href="deletePrintAgent?id=${printAgent.id}">Delete</a>
-            </td>
-        </tr>
-    </c:forEach>
+
+    <% for (int i = 0; i < agents.size(); i++) { %>
+    <tr>
+        <td>${agents.get(i).getId()}</td>
+        <td>${agents.get(i).getName()}</td>
+        <td>${agents.get(i).getUsername()}</td>
+        <td>${agents.get(i).getPassword()}</td>
+        <td>
+            <a class="button" href="editPrintAgent?id=${agents.get(i).getId()}">Edit</a>
+            <a class="button delete" href="deletePrintAgent?id=${agents.get(i).getId()}">Delete</a>
+        </td>
+    </tr>
+    <% } %>
+
 </table>
 </body>
 </html>

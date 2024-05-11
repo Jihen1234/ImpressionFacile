@@ -1,6 +1,11 @@
-
+<%@ page import="tn.jihen.demandedetirage.entity.PrintRequest" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.util.Locale" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,16 +71,21 @@
         <th>Document</th>
         <th>Action</th>
     </tr>
+    <%
+        List<PrintRequest> tasks = (List<PrintRequest>) request.getAttribute("tasks");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm", Locale.ENGLISH);
+    %>
+
     <!-- Loop through the list of tasks and display them -->
-    <c:forEach items="${tasks}" var="task">
-        <tr>
-            <td>${task.teacherName}</td>
-            <td>${task.numCopies}</td>
-            <td>${task.arrivalDate}</td>
-            <td>${task.document}</td>
-            <td><a href="printDocument?id=${task.id}">Print</a></td>
-        </tr>
-    </c:forEach>
+    <% for (int i = 0; i < tasks.size(); i++) { %>
+    <tr>
+        <td><%= tasks.get(i).getTeacher().getName() %></td>
+        <td><%= tasks.get(i).getNumOfCopies() %></td>
+        <td><%= tasks.get(i).getDateTime().format(formatter) %></td>
+        <td><%= tasks.get(i).getDocumentPath() %></td>
+        <td><a href="printDocument?id=<%= tasks.get(i).getId() %>">Print</a></td>
+    </tr>
+    <% } %>
 </table>
 </body>
 </html>
